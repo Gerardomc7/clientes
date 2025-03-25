@@ -28,8 +28,9 @@
                             <field name="fax"/>
                             <field name="forma_pago"/>
                         </group>
-                   </group>
-          </xpath>
+                    </group>
+                </page>
+         </xpath>
       </field>
   </record>
 
