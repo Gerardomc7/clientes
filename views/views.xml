@@ -1,0 +1,37 @@
+<odoo>
+  <data>
+       <!-- Menú Principal -->
+    <menuitem id="menu_clientes_root" name="Clientes" sequence="10"/>
+
+    <!-- Menú para Gestión de Clientes -->
+    <menuitem id="menu_clientes_gestion" name="Gestión de Clientes" parent="menu_clientes_root" sequence="1" action="action_clientes_list"/>
+
+    <!-- Acción para la Vista de Clientes -->
+    <record id="action_clientes_list" model="ir.actions.act_window">
+        <field name="name">Clientes</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+      <record id="view_clientes_form_inherit" model="ir.ui.view">
+      <field name="name">res.partner.form.inherit.clientes</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+         <xpath expr="//notebook" position="inside">
+                <page string="Datos Cliente">
+                    <group>
+                        <group>
+                            <field name="codigo_cliente"/>
+                            <field name="codigo_contable"/>
+                            <field name="provincia"/>
+                            <field name="fax"/>
+                            <field name="forma_pago"/>
+                        </group>
+                   </group>
+          </xpath>
+      </field>
+  </record>
+
+  </data>
+</odoo>
