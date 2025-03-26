@@ -32,6 +32,11 @@ Long description of module's purpose
 
     'application': True,
 
+    'assets': {
+    'web.assets_backend': [
+        'clientes/static/src/scss/custom_styles.scss',
+        ],
+    },
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',

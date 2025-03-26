@@ -1,10 +1,7 @@
 <odoo>
   <data>
-       <!-- Menú Principal -->
-    <menuitem id="menu_clientes_root" name="Clientes" sequence="10"/>
-
-    <!-- Menú para Gestión de Clientes -->
-    <menuitem id="menu_clientes_gestion" name="Gestión de Clientes" parent="menu_clientes_root" sequence="1" action="action_clientes_list"/>
+       <!-- Menú Principal --> 
+    <menuitem id="menu_clientes_root" name="Clientes" sequence="10" action="action_clientes_list"/>
 
     <!-- Acción para la Vista de Clientes -->
     <record id="action_clientes_list" model="ir.actions.act_window">
@@ -13,26 +10,36 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-      <record id="view_clientes_form_inherit" model="ir.ui.view">
-      <field name="name">res.partner.form.inherit.clientes</field>
-      <field name="model">res.partner</field>
-      <field name="inherit_id" ref="base.view_partner_form"/>
-      <field name="arch" type="xml">
-         <xpath expr="//notebook" position="inside">
-                <page string="Datos Cliente">
-                    <group>
+    <record id="view_partner_form_inherit_extra_info" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.extra.info</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+               <field name="customer_rank" invisible="1"/>
+               <page string="Más Información" class="custom-tab" invisible="customer_rank>0">
+                    <div class="custom-container">
                         <group>
-                            <field name="codigo_cliente"/>
-                            <field name="codigo_contable"/>
-                            <field name="provincia"/>
-                            <field name="fax"/>
-                            <field name="forma_pago"/>
+                            <group string="Datos Generales" class="custom-group custom-blue">
+                                <field name="codigo_cliente"/>
+                                <field name="codigo_contable"/>
+                                <field name="nombre_comercial"/>
+                            </group>
+                            <group string="Ubicación y Contacto" class="custom-group custom-green">
+                                <field name="provincia"/>
+                                <field name="fax"/>
+                                <field name="telefono2"/>
+                            </group>
                         </group>
-                    </group>
+                        <group class="custom-yellow">
+                            <field name="forma_pago" widget="many2one" options="{'can_create': True, 'can_edit': True}"/>
+                        </group>
+                    </div>
                 </page>
-         </xpath>
-      </field>
-  </record>
+            </xpath>
+        </field>
+    </record>
+
 
   </data>
 </odoo>
