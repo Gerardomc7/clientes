@@ -1,7 +1,9 @@
 <odoo>
   <data>
        <!-- Menú Principal --> 
-    <menuitem id="menu_clientes_root" name="Clientes" sequence="10" action="action_clientes_list"/>
+    <menuitem id="menu_clientes_root" name="Clientes" sequence="10"/>
+    <menuitem id="menu_clientes_list" name="Lista de Clientes" parent="menu_clientes_root" action="action_clientes_list"/>
+
 
     <!-- Acción para la Vista de Clientes -->
     <record id="action_clientes_list" model="ir.actions.act_window">
