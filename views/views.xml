@@ -7,9 +7,26 @@
     <record id="action_clientes_list" model="ir.actions.act_window">
         <field name="name">Clientes</field>
         <field name="res_model">res.partner</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
     </record>
 
+       <!-- VISTA FORM DE RES.PARTNER MODIFICANDO EL ATRIBUTO "Método de Pago" -->
+        <record id="view_partner_form_inherit_payment_method" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.payment_method</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='property_payment_method_id']" position="replace">
+                <field name="property_payment_method_id" 
+                      widget="many2one"
+                      options="{'can_create': True, 'can_edit': True}"
+                      can_write="True"/>
+            </xpath>
+        </field>
+      </record>
+
+  
+    <!-- VISTA FORM DE CLIENTES (Añadiendo la pestaña "Más Información")-->
     <record id="view_partner_form_inherit_extra_info" model="ir.ui.view">
         <field name="name">res.partner.form.inherit.extra.info</field>
         <field name="model">res.partner</field>
@@ -40,6 +57,49 @@
         </field>
     </record>
 
+ 
 
+    <!--VISTA LIST DE CLIENTES-->
+    <record id="view_partner_tree_inherit_extra_info" model="ir.ui.view">
+      <field name="name">res.partner.tree.inherit.extra.info</field>
+      <field name="model">res.partner</field>
+      <!-- Se hereda de la vista tree original de res.partner -->
+      <field name="inherit_id" ref="base.view_partner_tree"/>
+      <field name="arch" type="xml">
+        <!-- Reemplazamos la definición completa del árbol para mostrar solo los campos deseados -->
+        <xpath expr="//tree" position="replace">
+          <tree string="Clientes">
+            <field name="codigo_cliente"/>
+            <field name="name"/>
+            <field name="vat"/>
+            <field name="street"/>
+            <field name="city"/>
+            <field name="country_id"/>
+            <field name="phone"/>
+            <field name="email"/>
+          </tree>
+        </xpath>
+      </field>
+    </record>
+
+    <!-- VISTA KANBAN DE CLIENTES-->
+    <record id="view_partner_kanban_inherit_phone" model="ir.ui.view">
+      <field name="name">res.partner.kanban.inherit.phone</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+      <field name="arch" type="xml">
+        <!-- Insertamos el teléfono en un li con estilo forzado para que aparezca en nueva línea -->
+        <xpath expr="//ul/li[field[@name='email']]" position="after">
+          <li t-if="record.phone.raw_value" class="o_text_overflow" style="display: block; margin-top: 5px;">
+            <field name="phone"/>
+          </li>
+        </xpath>
+      </field>
+    </record>
+
+
+
+
+    
   </data>
 </odoo>
