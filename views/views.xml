@@ -2,7 +2,7 @@
   <data>
        <!-- Menú Principal --> 
     <menuitem id="menu_clientes_root" name="Clientes" sequence="10"/>
-    <menuitem id="menu_clientes_list" name="Lista de Clientes" parent="menu_clientes_root" action="action_clientes_list"/>
+   
 
 
     <!-- Acción para la Vista de Clientes -->
@@ -36,7 +36,7 @@
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                <field name="customer_rank" invisible="1"/>
-               <page string="Más Información" class="custom-tab" invisible="customer_rank>0">
+               <page string="Más Información" class="custom-tab" invisible="customer_rank==0">
                     <div class="custom-container">
                         <group>
                             <group string="Datos Generales" class="custom-group custom-blue">
